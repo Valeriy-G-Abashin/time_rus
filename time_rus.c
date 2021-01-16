@@ -19,6 +19,10 @@
 #define TSBUF_SIZE 40 /* Time String BUFfer_SIZE */
 
 
+void strCpy(char *dest, const char *src);
+void strCat(char *dest, const char *src);
+void addValueWithZero(char * buf, int value);
+
 /* Получение текущего времени */
 time_t getCurrentTt(void) {
 	return time(NULL);
@@ -103,27 +107,44 @@ char * tmToString(struct tm * st_tm, char * buf, int32_t buf_len) {
 	char temp[10] = {0};
 	char zero[4] = "0";
 	sprintf(temp, "%d.", st_tm->tm_year + 1900);
-	strcpy(buf, temp);
-	if (st_tm->tm_mon + 1 < 10)
-		strcat(buf, zero);
-	sprintf(temp, "%d.", st_tm->tm_mon + 1);
-	strcat(buf, temp);
-	if (st_tm->tm_mday < 10)
-		strcat(buf, zero);
-	sprintf(temp, "%d ", st_tm->tm_mday);
-	strcat(buf, temp);
-	if (st_tm->tm_hour < 10)
-		strcat(buf, zero);
-	sprintf(temp, "%d:", st_tm->tm_hour);
-	strcat(buf, temp);
-	if (st_tm->tm_min < 10)
-		strcat(buf, zero);
-	sprintf(temp, "%d:", st_tm->tm_min);
-	strcat(buf, temp);
-	if (st_tm->tm_sec < 10)
-		strcat(buf, zero);
-	sprintf(temp, "%d", st_tm->tm_sec);
-	strcat(buf, temp);
+	strCpy(buf, temp);
+	addValueWithZero(buf, st_tm->tm_mon + 1);
+	addValueWithZero(buf, st_tm->tm_mday);
+	addValueWithZero(buf, st_tm->tm_hour);
+	addValueWithZero(buf, st_tm->tm_min);
+	addValueWithZero(buf, st_tm->tm_sec);
+	return buf;
+}
+
+void addValueWithZero(char * buf, int value) {
+	char temp[10] = {0};
+	char zero[4] = "0";
+	if (value < 10)
+		strCat(buf, zero);
+	sprintf(temp, "%d:", value);
+	strCat(buf, temp);
+}
+
+void strCpy(char *dest, const char *src) {
+	int count = 0;
+	while (src[count] != 0) {
+		dest[count] = src[count];
+		count++;
+	}
+	dest[count] = 0;
+}
+
+void strCat(char *dest, const char *src) {
+	int count_dest = 0;
+	int count_src = 0;
+	while (dest[count_dest] != 0)
+		count_dest++;
+	while (src[count_src] != 0) {
+		dest[count_dest] = src[count_src];
+		count_src++;
+		count_dest++;
+	}
+	dest[count_dest] = 0;
 }
 
 /* Преобразование time_t в YYYY.MM.DD HH:MM:SS*/

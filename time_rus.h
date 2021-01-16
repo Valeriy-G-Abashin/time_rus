@@ -24,7 +24,6 @@ string(String) - char *
 #include <stdio.h>
 #include <time.h>
 #include <stdint.h>
-#include <string.h>
 
 #define TSBUF_SIZE 40 /* Time String BUFfer_SIZE */
 

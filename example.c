@@ -16,6 +16,7 @@
 
 /* gcc time_rus.c example.c -o example && ./example */
 #include <stdio.h>
+#include <string.h>
 #include "time_rus.h"
 
 int main() {
