@@ -1,14 +1,8 @@
 # time_rus
 Copyright (C) 2021 Abashin Valerii Gennadievich.
 
-NOTES:
-time_t always GM. Localtime/GM only struct tm
-system struct tm * - only one for thread!
-tt(Tt) - time_t
-tm(Tm) - struct tm
-string(String) - char *
-
 Contains functions:
+
 	- Getting the current time
 		time_t getCurrentTt(void);
 		struct tm * getCurrentLocalTm(void);
