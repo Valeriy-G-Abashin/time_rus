@@ -89,7 +89,6 @@ time_t gmTmToTt(struct tm *st_tm) {
 		else
 			result += 31536000; /* 31536000 - год 365 дней */
 	}
-	cur_year++;
 	/* дней в году, часов, минут, секунд */
 	result += st_tm->tm_yday * 86400 +
 		st_tm->tm_hour * 3600 +
@@ -273,7 +272,7 @@ char * intToStr(const int value, char *str) {
 	} while ((value_ /= 10) != 0);
 	str[count] = 0;
 	/* Перевернуть число в правильный порядок */
-	char temp;
+	char temp = 0;
 	int top, bottom;
 	top = count - 1;
 	bottom = 0;

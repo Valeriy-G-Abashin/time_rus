@@ -14,7 +14,7 @@
    License along with the GNU C Library; if not, see
    <http://www.gnu.org/licenses/>.  */
 
-/* gcc time_rus.c example.c -o example && ./example */
+/* gcc -std=c18 -Wall -pedantic time_rus.c example.c -o example && ./example */
 #include <stdio.h>
 #include <string.h>
 #include "time_rus.h"
@@ -84,6 +84,11 @@ int main() {
 		getGmYday(t), /* день в году (0-365, 1 январь = 0) */
 		getGmDst(t) /* летнее время */
 	);
+
+	printf("Строка из локального времени: %s\n",
+			ttToLocalString(&t, buf, TSBUF_SIZE));
+	printf("Строка из GM времени: %s\n",
+			ttToGmString(&t, buf, TSBUF_SIZE));
 
 	clock_t delta = getClock();
 	clock_t clocks_per_sec;
